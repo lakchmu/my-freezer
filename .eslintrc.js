@@ -6,6 +6,7 @@ module.exports = {
     'array-bracket-spacing': ['error', 'never'],
     'react/default-props-match-prop-types': ['error'],
     'react/sort-prop-types': ['error'],
+    'max-lines': ['error', 120],
   },
   settings: {
     'import/resolver': {

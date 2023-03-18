@@ -1,13 +1,16 @@
 import React from 'react';
+import { NativeBaseProvider } from 'native-base';
 
 import Router from './router';
 import { AuthProvider } from './store';
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Router />
-    </AuthProvider>
+    <NativeBaseProvider>
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
+    </NativeBaseProvider>
   );
 };
 

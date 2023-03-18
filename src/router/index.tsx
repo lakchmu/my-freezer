@@ -15,13 +15,9 @@ const Router = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {auth.state.isAuthorized ? (
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: 'Welcome' }}
-          />
+          <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Welcome' }} />
         ) : (
-          <Stack.Screen name="Home" component={LoginScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         )}
       </Stack.Navigator>
     </NavigationContainer>
