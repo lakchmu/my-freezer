@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import { Alert, Button, StyleSheet, Text, View } from 'react-native';
+import { Alert } from 'react-native';
+import { Stack, Button, Container, Heading } from 'native-base';
 
+import { AppBar } from '../../components';
 import { getHttpClient } from '../../rest';
 import { AuthContext } from '../../store';
 
-const HomeScreen = () => {
+export const HomeScreen = () => {
   const auth = useContext(AuthContext);
 
   const onPress = async () => {
@@ -14,20 +16,16 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={style.root}>
-      <Text>Welcome, {auth.state.name}!!!</Text>
-      <Button
-        onPress={onPress}
-        title="Test"
-        color="#841584"
-        accessibilityLabel="Login button"
-      />
-    </View>
+    <Stack w="100%" h="100%">
+      <AppBar title="Home" />
+      <Container w="100%" p="2">
+        <Heading mt="4" mb="6">
+          Welcome, {auth.state.name}!!!
+        </Heading>
+        <Button w="100%" onPress={onPress}>
+          Test
+        </Button>
+      </Container>
+    </Stack>
   );
 };
-
-const style = StyleSheet.create({
-  root: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-});
-
-export default HomeScreen;

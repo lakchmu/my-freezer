@@ -6,13 +6,13 @@ import { authService } from '../../rest';
 import { TokenService } from '../../utils';
 import { AuthContext } from '../../store';
 
-const LoginScreen = () => {
+export const LoginScreen = () => {
   const auth = useContext(AuthContext);
 
   const [show, setShow] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [email, setEmail] = React.useState<string>('');
-  const [password, setPassword] = React.useState<string>('');
+  const [email, setEmail] = React.useState<string>('lakchmu@gmail.com');
+  const [password, setPassword] = React.useState<string>('123');
 
   const onPress = async () => {
     try {
@@ -70,5 +70,3 @@ const LoginScreen = () => {
     </Stack>
   );
 };
-
-export default LoginScreen;
