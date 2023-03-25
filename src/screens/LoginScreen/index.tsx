@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Text, Stack, Input, Icon, Pressable, Button } from 'native-base';
 import Entypo from 'react-native-vector-icons/Entypo';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { authService } from '../../rest';
 import { TokenService } from '../../utils';
@@ -29,44 +30,55 @@ export const LoginScreen = () => {
   };
 
   return (
-    <Stack
-      space={2}
-      w={{ base: '75%', md: '25%' }}
-      h="100%"
-      alignContent="center"
-      justifyContent="center"
-      margin="auto">
-      <Text fontSize="2xl" letterSpacing="xl" color="muted.700" mb="2" alignSelf="center">
-        Login to your Account
-      </Text>
-      <Input
-        textContentType="emailAddress"
-        InputRightElement={<Icon as={Entypo} name="user" size={5} mr="2" color="muted.400" />}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <Input
-        textContentType="password"
-        type={show ? 'text' : 'password'}
-        InputRightElement={
-          <Pressable onPress={() => setShow(!show)}>
-            <Icon as={<Entypo name={show ? 'eye' : 'eye-with-line'} />} size={5} mr="2" color="muted.400" />
-          </Pressable>
-        }
-        placeholder="Password"
-        secureTextEntry={!show}
-        value={password}
-        onChangeText={setPassword}
-      />
-      <Button onPress={onPress} accessibilityLabel="Login button">
-        Login
-      </Button>
-      {error && (
-        <Text color="error.700" alignSelf="flex-start" mt="2">
-          Username or password is incorrect. Try again
+    <LinearGradient colors={['#fff', '#002851']}>
+      <Stack space={4} w="100%" h="100%" px={6} alignContent="center" justifyContent="center" margin="auto">
+        <Text fontSize="2xl" letterSpacing="xl" color="white" mb="8" alignSelf="center">
+          Login to your Account
         </Text>
-      )}
-    </Stack>
+        <Input
+          textContentType="emailAddress"
+          InputRightElement={<Icon as={Entypo} name="user" size={5} mr="2" color="white" />}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          variant="underlined"
+          color="white"
+          borderColor="white"
+          size="2xl"
+        />
+        <Input
+          textContentType="password"
+          type={show ? 'text' : 'password'}
+          InputRightElement={
+            <Pressable onPress={() => setShow(!show)}>
+              <Icon as={<Entypo name={show ? 'eye' : 'eye-with-line'} />} size={5} mr="2" color="white" />
+            </Pressable>
+          }
+          placeholder="Password"
+          secureTextEntry={!show}
+          value={password}
+          onChangeText={setPassword}
+          variant="underlined"
+          color="white"
+          borderColor="white"
+          size="2xl"
+        />
+        <Button
+          onPress={onPress}
+          accessibilityLabel="Login button"
+          variant="outline"
+          size="lg"
+          _text={{ color: 'white' }}
+          borderColor="white"
+          mt={4}>
+          Login
+        </Button>
+        {error && (
+          <Text color="error.700" alignSelf="flex-start" mt="2">
+            Username or password is incorrect. Try again
+          </Text>
+        )}
+      </Stack>
+    </LinearGradient>
   );
 };
