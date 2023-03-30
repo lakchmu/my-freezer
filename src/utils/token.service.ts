@@ -1,6 +1,6 @@
 import CookieManager from '@react-native-cookies/cookies';
 
-const baseUrl = 'http://daria.speople.pro';
+const baseUrl = process.env.BASE_URL || '';
 const IS_AUTHENTICATED = 'authenticated';
 const USER_TOKEN = 'userToken';
 

@@ -4,10 +4,10 @@ export interface Product {
   unit: Unit;
   amount: number;
   limit: number;
-  uri: string;
+  uri?: string;
 }
 
 export enum Unit {
-  PIECE,
-  GRAMS,
+  PIECE = 'PIECE',
+  GRAMS = 'GRAMS',
 }

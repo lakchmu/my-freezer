@@ -4,6 +4,8 @@ import { DrawerScreenProps } from '@react-navigation/drawer';
 
 import { AppBar } from '../../components';
 
+import { Form } from './components';
+
 type DrawerParamList = {
   NewProduct: {};
 };
@@ -18,6 +20,7 @@ export const NewProductScreen = ({ navigation }: NewProductProps) => {
         <Heading mt="4" mb="6">
           New Product
         </Heading>
+        <Form />
       </VStack>
     </Stack>
   );

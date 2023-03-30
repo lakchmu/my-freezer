@@ -1,20 +1,30 @@
 import React from 'react';
 import { Icon, Actionsheet as RBActionsheet } from 'native-base';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
+export type ActionItem = {
+  label: string;
+  iconName?: string;
+  value: any;
+};
 export interface ActionsheetProps {
+  items: ActionItem[];
   isOpen: boolean;
   onClose: () => void;
+  onPress(value: boolean): void;
 }
 
-export const Actionsheet = ({ isOpen, onClose }: ActionsheetProps) => (
+export const Actionsheet = ({ isOpen, onClose, items, onPress }: ActionsheetProps) => (
   <RBActionsheet isOpen={isOpen} onClose={onClose} size="full">
     <RBActionsheet.Content>
-      <RBActionsheet.Item startIcon={<Icon as={MaterialIcons} size="6" name="logout" />}>Logout</RBActionsheet.Item>
-      <RBActionsheet.Item startIcon={<Icon as={Ionicons} size="6" name="close" />} onPress={onClose}>
-        Close
-      </RBActionsheet.Item>
+      {items.map(({ label, value, iconName }: ActionItem) => (
+        <RBActionsheet.Item
+          {...(iconName ? { startIcon: <Icon as={MaterialIcons} size="6" name={iconName} /> } : {})}
+          onPress={() => onPress(value)}
+          key={label}>
+          {label}
+        </RBActionsheet.Item>
+      ))}
     </RBActionsheet.Content>
   </RBActionsheet>
 );

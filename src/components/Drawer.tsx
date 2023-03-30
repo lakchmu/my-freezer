@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
-import { Box, Pressable, VStack, Text, HStack, Divider } from 'native-base';
+import { Box, Pressable, VStack, Text, HStack, Divider, Stack } from 'native-base';
 
 import { HomeScreen, LoginScreen, NewProductScreen } from '../screens';
 

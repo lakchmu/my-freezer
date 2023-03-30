@@ -7,6 +7,8 @@ module.exports = {
     'react/default-props-match-prop-types': ['error'],
     'react/sort-prop-types': ['error'],
     'max-lines': ['error', 120],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
   settings: {
     'import/resolver': {

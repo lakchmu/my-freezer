@@ -26,6 +26,7 @@ export const LoginScreen = () => {
       await TokenService.setUserToken(Authorization);
     } catch (e: any) {
       setError(e.message);
+      console.error(e);
     }
   };
 
