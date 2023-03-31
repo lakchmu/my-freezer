@@ -1,9 +1,6 @@
-import { createContext, Dispatch } from 'react';
+import { createContext } from 'react';
 
-export interface ContextProvider<T> {
-  state: T;
-  dispatch: Dispatch<Partial<T>>;
-}
+import { ContextProvider } from '../types';
 
 export interface AuthState {
   isAuthorized: boolean;
@@ -11,12 +8,12 @@ export interface AuthState {
   name?: string;
 }
 
-export const initialState: AuthState = {
+export const authInitialState: AuthState = {
   isAuthorized: false,
 };
 
 const AuthContext = createContext<ContextProvider<AuthState>>({
-  state: initialState,
+  state: authInitialState,
   dispatch: () => {},
 });
 

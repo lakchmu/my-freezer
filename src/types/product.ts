@@ -9,5 +9,5 @@ export interface Product {
 
 export enum Unit {
   PIECE = 'PIECE',
-  GRAMS = 'GRAMS',
+  GRAM = 'GRAM',
 }

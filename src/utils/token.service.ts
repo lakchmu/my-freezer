@@ -3,16 +3,12 @@ import CookieManager from '@react-native-cookies/cookies';
 const baseUrl = process.env.BASE_URL || '';
 const IS_AUTHENTICATED = 'authenticated';
 const USER_TOKEN = 'userToken';
+const PROFILE = 'profile';
 
-const TokenService = {
+const CookieService = {
   async isUserAuthenticated(): Promise<boolean> {
     const res = await CookieManager.get(baseUrl);
-    return res[IS_AUTHENTICATED].value === 'true';
-  },
-
-  async getUserToken(): Promise<string> {
-    const res = await CookieManager.get(baseUrl);
-    return res[USER_TOKEN].value;
+    return res[IS_AUTHENTICATED] && res[IS_AUTHENTICATED].value === 'true';
   },
 
   async setAuthStatus(status: string): Promise<void> {
@@ -22,12 +18,30 @@ const TokenService = {
     });
   },
 
-  async setUserToken(accessToken: string): Promise<boolean> {
-    return await CookieManager.set(baseUrl, {
+  async getUserToken(): Promise<string> {
+    const res = await CookieManager.get(baseUrl);
+    return res[USER_TOKEN].value;
+  },
+
+  async setUserToken(accessToken: string): Promise<void> {
+    await CookieManager.set(baseUrl, {
       name: USER_TOKEN,
       value: accessToken,
+    });
+    await this.setAuthStatus('true');
+  },
+
+  async getProfile(): Promise<{ name: string; email: string }> {
+    const res = await CookieManager.get(baseUrl);
+    return JSON.parse(res[PROFILE].value);
+  },
+
+  async setProfile(profile: { name: string; email: string }): Promise<void> {
+    await CookieManager.set(baseUrl, {
+      name: PROFILE,
+      value: JSON.stringify(profile),
     });
   },
 };
 
-export default TokenService;
+export default CookieService;

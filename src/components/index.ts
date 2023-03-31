@@ -4,3 +4,4 @@ export * from './Button';
 export * from './ImageInput';
 export * from './Input';
 export * from './Select';
+export * from './Notification';

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FormControl, VStack, HStack } from 'native-base';
 import { Asset, ImagePickerResponse } from 'react-native-image-picker';
 
 import { Button, ImageInput, Input, Select } from '../../../components';
 import { Unit } from '../../../types';
 import { getHttpClient } from '../../../rest';
+import { NotificationContext, NotificationStatus } from '../../../store';
 
 export const Form = () => {
+  const { dispatch } = useContext(NotificationContext);
+
   const [name, setName] = useState<string>('');
   const [limit, setLimit] = useState<string>('');
   const [unit, setUnit] = useState<string>('');
@@ -14,7 +17,7 @@ export const Form = () => {
 
   const options = [
     { label: Unit.PIECE, value: Unit.PIECE },
-    { label: Unit.GRAMS, value: Unit.GRAMS },
+    { label: Unit.GRAM, value: Unit.GRAM },
   ];
 
   const onSubmit = async () => {
@@ -24,9 +27,10 @@ export const Form = () => {
 
       await httpClient.post('/product', body);
 
+      dispatch({ show: true, text: 'The Product Was Added', status: NotificationStatus.SUCCESS });
       clean();
     } catch (error: any) {
-      console.error(error.message);
+      dispatch({ show: true, text: error.message, status: NotificationStatus.ERROR });
     }
   };
 

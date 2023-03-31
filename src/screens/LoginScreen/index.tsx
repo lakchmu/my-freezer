@@ -4,7 +4,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { authService } from '../../rest';
-import { TokenService } from '../../utils';
+import { CookieService } from '../../utils';
 import { AuthContext } from '../../store';
 
 export const LoginScreen = () => {
@@ -18,15 +18,17 @@ export const LoginScreen = () => {
   const onPress = async () => {
     try {
       const { data, Authorization } = await authService.login({ email, password });
+
       auth.dispatch({
         email: data.email,
         name: data.name,
         isAuthorized: true,
       });
-      await TokenService.setUserToken(Authorization);
+
+      await CookieService.setUserToken(Authorization);
+      await CookieService.setProfile({ email: data.email, name: data.name });
     } catch (e: any) {
       setError(e.message);
-      console.error(e);
     }
   };
 

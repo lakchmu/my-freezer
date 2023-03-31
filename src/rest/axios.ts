@@ -1,11 +1,11 @@
-import axios, { HeadersDefaults } from 'axios';
+import axios from 'axios';
 
-import TokenService from '../utils/token.service';
+import CookieService from '../utils/token.service';
 
 const baseURL = `${process.env.BASE_URL}/api`;
 
 const getHttpClient = async ({ headers }: any) => {
-  const bearer = await TokenService.getUserToken();
+  const bearer = await CookieService.getUserToken();
   return axios.create({
     baseURL,
     headers: {

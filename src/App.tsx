@@ -5,6 +5,8 @@ import 'react-native-reanimated';
 
 import Router from './router';
 import { AuthProvider } from './store';
+import { NotificationProvider } from './store/useNotification';
+import { Notification } from './components';
 
 const App = () => {
   const theme = extendTheme({
@@ -65,7 +67,10 @@ const App = () => {
   return (
     <NativeBaseProvider theme={theme}>
       <AuthProvider>
-        <Router />
+        <NotificationProvider>
+          <Router />
+          <Notification />
+        </NotificationProvider>
       </AuthProvider>
     </NativeBaseProvider>
   );
