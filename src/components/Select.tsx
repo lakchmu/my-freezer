@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { FormControl, Stack, Select as NBSelect, Icon } from 'native-base';
-import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export interface SelectProps {
@@ -30,10 +29,7 @@ export const Select = ({
       <NBSelect
         accessibilityLabel={accessibilityLabel}
         placeholder={placeholder}
-        _selectedItem={{
-          bg: 'teal.600',
-          endIcon: <Icon as={Feather} name="chevron-down" size={3} />,
-        }}
+        _selectedItem={{ bg: 'teal.600' }}
         selectedValue={value}
         onValueChange={onSelect}>
         {options.map((option: Option) => (

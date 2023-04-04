@@ -7745,6 +7745,11 @@
   dependencies:
     "hoist-non-react-statics" "^2.3.1"
 
+"react-native-scan-barcode@^3.1.7":
+  "integrity" "sha512-4N+D/MZM84Pw4XAV7JmwCMoVVmpcbcIe4qzVEaRhSQj7HdpWiWJ0FJDrP0NMV2GJJXbxglYVjrlWLK3Uh0qCYA=="
+  "resolved" "https://registry.npmjs.org/react-native-scan-barcode/-/react-native-scan-barcode-3.1.7.tgz"
+  "version" "3.1.7"
+
 "react-native-screens@^3.20.0", "react-native-screens@>= 3.0.0", "react-native-screens@>=1.0.0 || >= 2.0.0-alpha.0 || >= 2.0.0-beta.0 || >= 2.0.0":
   "integrity" "sha512-joWUKWAVHxymP3mL9gYApFHAsbd9L6ZcmpoZa6Sl3W/82bvvNVMqcfP7MeNqVCg73qZ8yL4fW+J/syusHleUgg=="
   "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-3.20.0.tgz"

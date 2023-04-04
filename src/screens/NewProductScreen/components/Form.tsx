@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { FormControl, VStack, HStack } from 'native-base';
 import { Asset, ImagePickerResponse } from 'react-native-image-picker';
 
-import { Button, ImageInput, Input, Select } from '../../../components';
+import { Button, ImageInput, Input, Scanner, Select } from '../../../components';
 import { Unit } from '../../../types';
 import { getHttpClient } from '../../../rest';
 import { NotificationContext, NotificationStatus } from '../../../store';
@@ -13,6 +13,7 @@ export const Form = () => {
   const [name, setName] = useState<string>('');
   const [limit, setLimit] = useState<string>('');
   const [unit, setUnit] = useState<string>('');
+  const [barcode, setBarcode] = useState<string>('');
   const [image, setImage] = useState<ImagePickerResponse>({} as ImagePickerResponse);
 
   const options = [
@@ -47,6 +48,7 @@ export const Form = () => {
     body.append('name', name);
     body.append('limit', limit);
     body.append('unit', unit);
+    body.append('barcode', barcode);
 
     return body;
   };
@@ -55,6 +57,7 @@ export const Form = () => {
     setName('');
     setLimit('');
     setUnit('');
+    setBarcode('');
     setImage({});
   };
 
@@ -86,6 +89,7 @@ export const Form = () => {
           />
         </FormControl>
       </HStack>
+      <Scanner value={barcode} setValue={setBarcode} />
       <Button mt="8" size="lg" onPress={onSubmit}>
         Create
       </Button>
