@@ -1,12 +1,19 @@
-import type { CompositeScreenProps } from '@react-navigation/native';
-import type { DrawerScreenProps } from '@react-navigation/drawer';
-import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import type { CompositeNavigationProp, CompositeScreenProps } from '@react-navigation/native';
+import type { DrawerScreenProps, DrawerNavigationProp } from '@react-navigation/drawer';
+import type { BottomTabNavigationProp, BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+
+export enum RootStackScreen {
+  LOGIN = 'Login',
+  HOME = 'Home',
+  SEARCH = 'Search',
+  NEWPRODUCT = 'NewProduct',
+}
 
 export type RootStackParamList = {
-  Login: undefined;
-  Home: undefined;
-  Search: undefined;
-  NewProduct: undefined;
+  [RootStackScreen.LOGIN]: undefined;
+  [RootStackScreen.HOME]: undefined;
+  [RootStackScreen.SEARCH]: undefined;
+  [RootStackScreen.NEWPRODUCT]: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = DrawerScreenProps<RootStackParamList, T>;
@@ -23,3 +30,8 @@ declare global {
     interface RootParamList extends RootStackParamList {}
   }
 }
+
+export type BaseScreenNavigationProp<T extends keyof RootStackParamList> = CompositeNavigationProp<
+  BottomTabNavigationProp<RootStackParamList, T>,
+  DrawerNavigationProp<RootStackParamList, T>
+>;

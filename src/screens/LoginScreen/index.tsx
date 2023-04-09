@@ -6,8 +6,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import { authService } from '../../rest';
 import { CookieService } from '../../utils';
 import { AuthContext } from '../../store';
+import { RootStackScreen, RootStackScreenProps } from '../../router/type';
 
-export const LoginScreen = () => {
+export const LoginScreen = ({}: RootStackScreenProps<RootStackScreen.LOGIN>) => {
   const auth = useContext(AuthContext);
 
   const [show, setShow] = React.useState(false);

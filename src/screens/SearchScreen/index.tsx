@@ -4,11 +4,11 @@ import { Stack, VStack, Heading } from 'native-base';
 import { AppBar, Scanner } from '../../components';
 import { getHttpClient } from '../../rest';
 import { Product } from '../../types';
-import { RootStackScreenProps } from '../../router/type';
+import { RootStackScreen, RootStackScreenProps } from '../../router/type';
 
 import { Products } from '../HomeScreen/components/Products'; // TODO
 
-export const SearchScreen = ({ navigation }: RootStackScreenProps<'Search'>) => {
+export const SearchScreen = ({}: RootStackScreenProps<RootStackScreen.SEARCH>) => {
   const [barcode, setBarcode] = useState<string>('');
   const [items, setItems] = useState<Product[]>([]);
 
@@ -24,7 +24,7 @@ export const SearchScreen = ({ navigation }: RootStackScreenProps<'Search'>) => 
 
   return (
     <Stack w="100%" h="100%" backgroundColor="gray.100">
-      <AppBar title="Search" onOpen={navigation.openDrawer} />
+      <AppBar currentScreen={RootStackScreen.SEARCH} />
       <VStack w="100%" p="2" space={2}>
         <Heading mt="4" mb="6">
           Use barcode to find product

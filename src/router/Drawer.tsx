@@ -3,9 +3,9 @@ import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigatio
 import { Box, Pressable, VStack, Text, HStack, Divider, Stack } from 'native-base';
 
 import { HomeScreen, LoginScreen, NewProductScreen, SearchScreen } from '../screens';
-
 import AuthContext from '../store/auth/state';
-import { RootStackParamList } from '@/router/type';
+
+import { RootStackParamList, RootStackScreen } from './type';
 
 const DrawerNavigator = createDrawerNavigator<RootStackParamList>();
 
@@ -55,12 +55,12 @@ export const Drawer = () => {
       screenOptions={{ headerShown: false }}>
       {auth.state.isAuthorized ? (
         <>
-          <DrawerNavigator.Screen name="Home" component={HomeScreen} />
-          <DrawerNavigator.Screen name="Search" component={SearchScreen} />
-          <DrawerNavigator.Screen name="NewProduct" component={NewProductScreen} />
+          <DrawerNavigator.Screen name={RootStackScreen.HOME} component={HomeScreen} />
+          <DrawerNavigator.Screen name={RootStackScreen.SEARCH} component={SearchScreen} />
+          <DrawerNavigator.Screen name={RootStackScreen.NEWPRODUCT} component={NewProductScreen} />
         </>
       ) : (
-        <DrawerNavigator.Screen name="Login" component={LoginScreen} />
+        <DrawerNavigator.Screen name={RootStackScreen.LOGIN} component={LoginScreen} />
       )}
     </DrawerNavigator.Navigator>
   );

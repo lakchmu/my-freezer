@@ -1,23 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Stack, VStack, Heading } from 'native-base';
 
-import { AppBar } from '../../components';
 import { AuthContext } from '../../store';
 import { getHttpClient } from '../../rest';
 import { Product } from '../../types';
-import { RootStackScreenProps } from '../../router/type';
+import { RootStackScreen, RootStackScreenProps } from '../../router/type';
+import { AppBar } from '../../components';
 
 import { Products } from './components/Products';
 
-export const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
+export const HomeScreen = ({}: RootStackScreenProps<RootStackScreen.HOME>) => {
   const auth = useContext(AuthContext);
   const [items, setItems] = useState<Product[]>([]);
 
-  const getItems = async () => {
+  const getItems = useCallback(async () => {
     const httpClient = await getHttpClient({});
     const res = await httpClient.get('/product');
     setItems(res.data);
-  };
+  }, []);
 
   useEffect(() => {
     getItems();
@@ -25,7 +25,7 @@ export const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
 
   return (
     <Stack w="100%" h="100%" backgroundColor="gray.100">
-      <AppBar title="Home" onOpen={navigation.openDrawer} onSearch={() => navigation.navigate('Search', {})} />
+      <AppBar currentScreen={RootStackScreen.HOME} />
       <VStack w="100%" p="2">
         <Heading mt="4" mb="6">
           Welcome, {auth.state.name}!!!
