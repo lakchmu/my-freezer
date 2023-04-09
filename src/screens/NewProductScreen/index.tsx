@@ -1,18 +1,12 @@
 import React from 'react';
 import { Heading, Stack, VStack } from 'native-base';
-import { DrawerScreenProps } from '@react-navigation/drawer';
 
 import { AppBar } from '../../components';
+import { RootStackScreenProps } from '../../router/type';
 
 import { Form } from './components';
 
-type DrawerParamList = {
-  NewProduct: {};
-};
-
-type NewProductProps = DrawerScreenProps<DrawerParamList, 'NewProduct'>;
-
-export const NewProductScreen = ({ navigation }: NewProductProps) => {
+export const NewProductScreen = ({ navigation }: RootStackScreenProps<'NewProduct'>) => {
   return (
     <Stack w="100%" h="100%" backgroundColor="gray.100">
       <AppBar title="NewProduct" onOpen={navigation.openDrawer} />

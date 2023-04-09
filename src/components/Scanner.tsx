@@ -54,7 +54,7 @@ const styles = (height: number) =>
   StyleSheet.create({
     root: {
       position: 'absolute',
-      height: height - 150,
+      height: height,
       width: '100%',
       top: '50%',
       left: 0,

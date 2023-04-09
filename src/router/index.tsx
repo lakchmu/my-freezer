@@ -1,16 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { LoginScreen, HomeScreen } from '../screens';
-import AuthContext from '../store/auth/state';
-import { Drawer } from '../components';
-
-const Stack = createNativeStackNavigator();
+import { Drawer } from './Drawer';
 
 const Router = () => {
-  const auth = useContext(AuthContext);
-
   return (
     <NavigationContainer>
       {/* <Stack.Navigator screenOptions={{ headerShown: false }}>
