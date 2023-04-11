@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { Drawer } from './Drawer';
+import { Drawer } from './components/Drawer';
 
 const Router = () => {
   return (

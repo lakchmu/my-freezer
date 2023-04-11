@@ -1,17 +1,16 @@
 import React from 'react';
-import { Box, HStack, Icon, IconButton, StatusBar, Text } from 'native-base';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { Box, HStack, Icon, IconButton, StatusBar } from 'native-base';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
 import { BaseScreenNavigationProp, RootStackScreen } from '../router/type';
 
 export interface AppBarProps {
-  title?: string;
   currentScreen: RootStackScreen;
 }
 
-export function AppBar({ title, currentScreen }: AppBarProps) {
+export function AppBar({ currentScreen }: AppBarProps) {
   const { openDrawer, navigate } = useNavigation<BaseScreenNavigationProp<typeof currentScreen>>();
 
   const onOpen = () => openDrawer();
@@ -21,19 +20,16 @@ export function AppBar({ title, currentScreen }: AppBarProps) {
     <LinearGradient colors={['#899BAE', '#5D7690', '#002851']} start={{ x: 0, y: 0 }}>
       <StatusBar backgroundColor="#000" barStyle="light-content" />
       <Box safeAreaTop />
-      <HStack px="1" py="3" justifyContent="space-between" alignItems="center" w="100%">
-        <HStack alignItems="center">
-          <>
-            <IconButton onPress={onOpen} icon={<Icon size="sm" as={MaterialIcons} name="menu" color="white" />} />
-          </>
-          <Text color="white" fontSize="20" fontWeight="bold">
-            {title || 'My Feezer'}
-          </Text>
+      <HStack px="2" py="3" justifyContent="space-between" alignItems="center" w="100%">
+        <HStack alignItems="baseline">
+          <IconButton onPress={onOpen} icon={<Icon size="lg" as={SimpleLineIcons} name="menu" color="white" />} />
         </HStack>
-        <HStack>
-          <IconButton icon={<Icon as={MaterialIcons} name="favorite" size="sm" color="white" />} />
-          <IconButton onPress={onSearch} icon={<Icon as={MaterialIcons} name="search" size="sm" color="white" />} />
-          <IconButton icon={<Icon as={MaterialIcons} name="more-vert" size="sm" color="white" />} />
+        <HStack alignItems="baseline" space={1}>
+          <IconButton icon={<Icon as={SimpleLineIcons} name="heart" size="lg" color="white" />} />
+          <IconButton
+            onPress={onSearch}
+            icon={<Icon as={SimpleLineIcons} name="magnifier" size="lg" color="white" />}
+          />
         </HStack>
       </HStack>
     </LinearGradient>
