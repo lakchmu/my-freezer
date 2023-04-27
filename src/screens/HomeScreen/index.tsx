@@ -3,11 +3,12 @@ import { Stack, VStack, Heading } from 'native-base';
 
 import { AuthContext } from '../../store';
 import { getHttpClient } from '../../rest';
-import { Product } from '../../types';
 import { RootStackScreen, RootStackScreenProps } from '../../router/type';
 import { AppBar } from '../../components';
 
-import { Products } from './components/Products';
+import { ProductList } from './components';
+
+import type { Product } from '../../types';
 
 export const HomeScreen = ({}: RootStackScreenProps<RootStackScreen.HOME>) => {
   const auth = useContext(AuthContext);
@@ -30,7 +31,7 @@ export const HomeScreen = ({}: RootStackScreenProps<RootStackScreen.HOME>) => {
         <Heading mt="4" mb="6">
           Welcome, {auth.state.name}!!!
         </Heading>
-        <Products products={items} />
+        <ProductList products={items} />
       </VStack>
     </Stack>
   );

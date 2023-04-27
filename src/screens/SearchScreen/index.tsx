@@ -6,7 +6,7 @@ import { getHttpClient } from '../../rest';
 import { Product } from '../../types';
 import { RootStackScreen, RootStackScreenProps } from '../../router/type';
 
-import { Products } from '../HomeScreen/components/Products'; // TODO
+import { ProductList } from '../HomeScreen/components/ProductList'; // TODO
 
 export const SearchScreen = ({}: RootStackScreenProps<RootStackScreen.SEARCH>) => {
   const [barcode, setBarcode] = useState<string>('');
@@ -30,7 +30,7 @@ export const SearchScreen = ({}: RootStackScreenProps<RootStackScreen.SEARCH>) =
           Use barcode to find product
         </Heading>
         <Scanner value={barcode} setValue={setBarcode} />
-        <Products products={items} />
+        <ProductList products={items} />
       </VStack>
     </Stack>
   );
