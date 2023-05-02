@@ -1,5 +1,8 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useContext, useState } from 'react';
 import { HStack, Avatar, VStack, Text } from 'native-base';
+import { debounce } from 'lodash';
+
+import { ProductsContext } from '../../../store';
 
 import { Counter } from './Counter';
 
@@ -9,8 +12,21 @@ const BASE_URL = process.env.BASE_URL;
 
 export interface ProductItemProps extends Product {}
 
-export const ProductItem: FC<ProductItemProps> = ({ name, uri, amount, limit }: ProductItemProps) => {
-  const [count, setCount] = useState<number>(0);
+export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit }: ProductItemProps) => {
+  const { edit } = useContext(ProductsContext);
+
+  const [count, setCount] = useState<number>(amount);
+
+  const debounceEdit = useCallback(debounce(edit, 2000), [edit]); // TODO fix warning
+
+  const onCountChange = useCallback(
+    (value: number) => {
+      console.log('hey onCountChange: ', value);
+      setCount(value);
+      debounceEdit({ id, amount: value });
+    },
+    [id, debounceEdit],
+  );
 
   const source = uri ? { uri: `${BASE_URL}/uploads/${uri}` } : undefined;
 
@@ -24,11 +40,11 @@ export const ProductItem: FC<ProductItemProps> = ({ name, uri, amount, limit }: 
           {name}
         </Text>
         <Text fontSize="md" color="coolGray.800">
-          Amount: {amount}, Limit: {limit}
+          Amount: {count}, Limit: {limit}
         </Text>
       </VStack>
       <VStack alignItems="flex-end">
-        <Counter value={count} onChange={setCount} />
+        <Counter value={count} onChange={onCountChange} />
       </VStack>
     </HStack>
   );

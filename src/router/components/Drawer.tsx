@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 
 import { HomeScreen, LoginScreen, NewProductScreen, SearchScreen } from '../../screens';
@@ -14,6 +14,10 @@ export const Drawer = () => {
   const auth = useContext(AuthContext);
 
   const getContent = useCallback((props: DrawerContentComponentProps) => <DrawerContent {...props} />, []);
+
+  useEffect(() => {
+    console.log('User isAuthorized: ', auth.state.isAuthorized);
+  }, [auth.state.isAuthorized]);
 
   return (
     <DrawerNavigator.Navigator drawerContent={getContent} screenOptions={{ headerShown: false }}>

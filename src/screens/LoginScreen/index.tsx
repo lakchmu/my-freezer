@@ -18,6 +18,7 @@ export const LoginScreen = ({}: RootStackScreenProps<RootStackScreen.LOGIN>) => 
 
   const onPress = async () => {
     try {
+      console.log('Login POST: ', email, ' ', password);
       const { data, Authorization } = await authService.login({ email, password });
 
       auth.dispatch({

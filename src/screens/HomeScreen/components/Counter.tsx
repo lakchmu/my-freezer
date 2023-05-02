@@ -13,7 +13,9 @@ export const Counter: FC<CounterProps> = ({ value, onChange }: CounterProps) => 
   };
 
   const onDecrement = () => {
-    onChange(value - 1);
+    if (value > 0) {
+      onChange(value - 1);
+    }
   };
 
   const Icon = useCallback(

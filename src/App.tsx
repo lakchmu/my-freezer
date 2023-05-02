@@ -4,7 +4,7 @@ import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
 import Router from './router';
-import { AuthProvider } from './store';
+import { AuthProvider, ProductProvider } from './store';
 import { NotificationProvider } from './store/useNotification';
 import { Notification } from './components';
 
@@ -68,8 +68,10 @@ const App = () => {
     <NativeBaseProvider theme={theme}>
       <AuthProvider>
         <NotificationProvider>
-          <Router />
-          <Notification />
+          <ProductProvider>
+            <Router />
+            <Notification />
+          </ProductProvider>
         </NotificationProvider>
       </AuthProvider>
     </NativeBaseProvider>

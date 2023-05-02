@@ -1,4 +1,4 @@
-import CookieManager from '@react-native-cookies/cookies';
+import CookieManager from '@react-native-cookies/cookies'; // TODO change store
 
 const baseUrl = process.env.BASE_URL || '';
 const IS_AUTHENTICATED = 'authenticated';
@@ -8,7 +8,7 @@ const PROFILE = 'profile';
 const CookieService = {
   async isUserAuthenticated(): Promise<boolean> {
     const res = await CookieManager.get(baseUrl);
-    return res[IS_AUTHENTICATED] && res[IS_AUTHENTICATED].value === 'true';
+    return !!(res[IS_AUTHENTICATED] && res[IS_AUTHENTICATED].value === 'true');
   },
 
   async setAuthStatus(status: string): Promise<void> {
@@ -33,6 +33,7 @@ const CookieService = {
 
   async getProfile(): Promise<{ name: string; email: string }> {
     const res = await CookieManager.get(baseUrl);
+    console.log('Profile: ', res[PROFILE].value);
     return JSON.parse(res[PROFILE].value);
   },
 

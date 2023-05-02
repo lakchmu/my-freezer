@@ -6,6 +6,7 @@ const baseUrl = process.env.BASE_URL;
 
 class AuthService {
   login({ email, password }: Credentials): Promise<{ data: UserModel; Authorization: string }> {
+    console.log('Auth Service -> login: ', JSON.stringify({ email, password }));
     return axios({
       method: 'post',
       url: `${baseUrl}/api/auth/login`,

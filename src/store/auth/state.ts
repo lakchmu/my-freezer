@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { ContextProvider } from '../types';
+import type { ContextProvider } from '../types';
 
 export interface AuthState {
   isAuthorized: boolean;
