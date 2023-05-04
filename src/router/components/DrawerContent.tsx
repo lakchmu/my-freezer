@@ -12,7 +12,10 @@ const MapScreenNameLabel = {
   [RootStackScreen.HOME]: 'Home',
   [RootStackScreen.SEARCH]: 'Search',
   [RootStackScreen.NEWPRODUCT]: 'Add New Product',
+  [RootStackScreen.EDITPRODUCT]: 'Edit Product',
 };
+
+const BLACK_LIST: string[] = [RootStackScreen.SEARCH, RootStackScreen.EDITPRODUCT];
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
   const { state } = useContext(AuthContext);
@@ -38,7 +41,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           <VStack space="3">
             {props.state.routeNames.map(
               (name, index) =>
-                name !== RootStackScreen.SEARCH && (
+                !BLACK_LIST.includes(name) && (
                   <Pressable
                     px="5"
                     py="3"

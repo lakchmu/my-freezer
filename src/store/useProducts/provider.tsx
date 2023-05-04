@@ -11,6 +11,7 @@ import type { Product } from '../../types';
 export const ProductProvider: FC<{ children: React.ReactNode }> = ({ children }: { children: React.ReactNode }) => {
   const auth = useContext(AuthContext);
   const [loading, setLoading] = useState<boolean>(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   const [state, dispatch] = useReducer<(state: ProductsState, action: Partial<ProductsState>) => ProductsState>(
     (currentState: ProductsState, action: Partial<ProductsState>): ProductsState => ({
@@ -25,26 +26,37 @@ export const ProductProvider: FC<{ children: React.ReactNode }> = ({ children }:
       setLoading(true);
       const list = await productService.getAll();
       dispatch({ list });
+      setLoaded(true);
       setLoading(false);
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.error('Error: ', error.message);
     }
   }, []);
 
   useEffect(() => {
-    if (auth.state.name && !state.list.length && !loading) {
+    if (auth.state.isAuthorized && !loaded && !loading) {
       init();
     }
-  }, [init, auth.state.name, loading, state.list.length]);
+  }, [init, auth.state.isAuthorized, loaded, loading]);
 
-  const edit = useCallback((value: Partial<Product>): Promise<void> => productService.edit(value), []);
+  const create = useCallback((value: FormData): Promise<void> => productService.create(value), []);
+  const edit = useCallback(
+    (id: number, value: Partial<Product> | FormData): Promise<void> => productService.edit(id, value),
+    [],
+  );
+  const getById = useCallback(
+    (id: number): Product | undefined => state.list.find(product => product.id === id),
+    [state.list],
+  );
 
   return (
     <ProductsContext.Provider
       value={{
         state,
         dispatch,
+        create,
         edit,
+        getById,
       }}>
       {children}
     </ProductsContext.Provider>

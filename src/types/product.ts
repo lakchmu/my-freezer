@@ -5,6 +5,7 @@ export interface Product {
   amount: number;
   limit: number;
   uri?: string;
+  barcode?: string;
 }
 
 export enum Unit {

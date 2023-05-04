@@ -7,6 +7,7 @@ export enum RootStackScreen {
   HOME = 'Home',
   SEARCH = 'Search',
   NEWPRODUCT = 'NewProduct',
+  EDITPRODUCT = 'EditProduct',
 }
 
 export type RootStackParamList = {
@@ -14,6 +15,7 @@ export type RootStackParamList = {
   [RootStackScreen.HOME]: undefined;
   [RootStackScreen.SEARCH]: undefined;
   [RootStackScreen.NEWPRODUCT]: undefined;
+  [RootStackScreen.EDITPRODUCT]: { id: number };
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = DrawerScreenProps<RootStackParamList, T>;

@@ -9,9 +9,10 @@ import { Actionsheet } from './Actionsheet';
 export interface ImageInputProps {
   value: ImagePickerResponse;
   onInput: Dispatch<SetStateAction<ImagePickerResponse>>;
+  currentUri?: string;
 }
 
-export const ImageInput = ({ value, onInput }: ImageInputProps) => {
+export const ImageInput = ({ currentUri, value, onInput }: ImageInputProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onPress = async (useGallery: boolean) => {
@@ -23,9 +24,11 @@ export const ImageInput = ({ value, onInput }: ImageInputProps) => {
     setIsOpen(false);
   };
 
-  const uri = useMemo(() => {
-    return value.assets ? value.assets[0].uri : 'https://wallpaperaccess.com/full/317501.jpg';
-  }, [value]);
+  const uri: string = useMemo(() => {
+    const defaultUri = currentUri || 'https://wallpaperaccess.com/full/317501.jpg';
+
+    return value.assets?.length && value.assets[0].uri ? value.assets[0].uri : defaultUri;
+  }, [value, currentUri]);
 
   const items = [
     { label: 'From Gallery', value: true },

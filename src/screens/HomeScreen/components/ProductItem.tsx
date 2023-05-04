@@ -1,8 +1,11 @@
 import React, { FC, useCallback, useContext, useState } from 'react';
-import { HStack, Avatar, VStack, Text } from 'native-base';
+import { HStack, Avatar, VStack, Text, IconButton, Icon } from 'native-base';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import { useNavigation } from '@react-navigation/native';
 import { debounce } from 'lodash';
 
 import { ProductsContext } from '../../../store';
+import { BaseScreenNavigationProp, RootStackScreen } from '../../../router/type';
 
 import { Counter } from './Counter';
 
@@ -14,16 +17,18 @@ export interface ProductItemProps extends Product {}
 
 export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit }: ProductItemProps) => {
   const { edit } = useContext(ProductsContext);
+  const { navigate } = useNavigation<BaseScreenNavigationProp<RootStackScreen.HOME>>();
 
   const [count, setCount] = useState<number>(amount);
 
   const debounceEdit = useCallback(debounce(edit, 2000), [edit]); // TODO fix warning
 
+  const onEditPageOpen = () => navigate(RootStackScreen.EDITPRODUCT, { id });
+
   const onCountChange = useCallback(
     (value: number) => {
-      console.log('hey onCountChange: ', value);
       setCount(value);
-      debounceEdit({ id, amount: value });
+      debounceEdit(id, { amount: value });
     },
     [id, debounceEdit],
   );
@@ -43,7 +48,11 @@ export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit
           Amount: {count}, Limit: {limit}
         </Text>
       </VStack>
-      <VStack alignItems="flex-end">
+      <VStack alignItems="flex-end" space={5}>
+        <IconButton
+          onPress={onEditPageOpen}
+          icon={<Icon size="md" as={SimpleLineIcons} name="pencil" color="lime.600" />}
+        />
         <Counter value={count} onChange={onCountChange} />
       </VStack>
     </HStack>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { VStack } from 'native-base';
+import { ScrollView, VStack } from 'native-base';
 
 import { ProductItem } from './ProductItem';
 
@@ -11,10 +11,12 @@ export interface ProductListProps {
 
 export const ProductList = ({ products }: ProductListProps) => {
   return (
-    <VStack space={2} w="100%" h="100%">
-      {products.map(product => (
-        <ProductItem {...product} key={product.id} />
-      ))}
-    </VStack>
+    <ScrollView>
+      <VStack space={2} w="100%" h="100%">
+        {products.map(product => (
+          <ProductItem {...product} key={product.id} />
+        ))}
+      </VStack>
+    </ScrollView>
   );
 };

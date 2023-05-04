@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 
-import { HomeScreen, LoginScreen, NewProductScreen, SearchScreen } from '../../screens';
+import { EditProductScreen, HomeScreen, LoginScreen, NewProductScreen, SearchScreen } from '../../screens';
 import AuthContext from '../../store/auth/state';
 
 import { RootStackParamList, RootStackScreen } from '../type';
@@ -26,6 +26,7 @@ export const Drawer = () => {
           <DrawerNavigator.Screen name={RootStackScreen.HOME} component={HomeScreen} />
           <DrawerNavigator.Screen name={RootStackScreen.SEARCH} component={SearchScreen} />
           <DrawerNavigator.Screen name={RootStackScreen.NEWPRODUCT} component={NewProductScreen} />
+          <DrawerNavigator.Screen name={RootStackScreen.EDITPRODUCT} component={EditProductScreen} />
         </>
       ) : (
         <DrawerNavigator.Screen name={RootStackScreen.LOGIN} component={LoginScreen} />

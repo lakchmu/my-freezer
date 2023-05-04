@@ -4,7 +4,7 @@ import { Heading, Stack, VStack } from 'native-base';
 import { RootStackScreen, RootStackScreenProps } from '../../router/type';
 import { AppBar } from '../../components';
 
-import { Form } from './components';
+import { CreatingForm } from './components';
 
 export const NewProductScreen = ({}: RootStackScreenProps<RootStackScreen.NEWPRODUCT>) => {
   return (
@@ -14,7 +14,7 @@ export const NewProductScreen = ({}: RootStackScreenProps<RootStackScreen.NEWPRO
         <Heading mt="4" mb="6">
           New Product
         </Heading>
-        <Form />
+        <CreatingForm />
       </VStack>
     </Stack>
   );

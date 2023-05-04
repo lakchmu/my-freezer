@@ -11,10 +11,16 @@ class ProductService {
     return res.data;
   }
 
-  async edit(data: Partial<Product>): Promise<void> {
+  async create(data: FormData): Promise<void> {
     const httpClient = await getHttpClient({ headers: { 'Content-Type': 'multipart/form-data' } });
 
-    await httpClient.put('/product', data);
+    await httpClient.post('/product', data);
+  }
+
+  async edit(id: number, data: Partial<Product> | FormData): Promise<void> {
+    const httpClient = await getHttpClient({ headers: { 'Content-Type': 'multipart/form-data' } });
+
+    await httpClient.put(`/product/${id}`, data);
   }
 }
 

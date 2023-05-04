@@ -1,16 +1,16 @@
 import React from 'react';
 import { Button as NBButton, IButtonProps } from 'native-base';
 
-export interface ButtonProps extends IButtonProps {}
+export interface CancelProps extends IButtonProps {}
 
-export const Button = ({ children, ...props }: ButtonProps) => {
+export const Cancel = ({ ...props }: CancelProps) => {
   return (
     <NBButton
       {...props}
       flex="1"
-      bgColor="success.600"
+      variant="outline"
       _text={{ fontSize: 16, fontWeight: 700, letterSpacing: 0.5, textTransform: 'uppercase' }}>
-      {children}
+      Cancel
     </NBButton>
   );
 };
