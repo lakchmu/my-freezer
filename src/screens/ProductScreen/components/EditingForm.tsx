@@ -19,6 +19,7 @@ export const EditingForm = ({ id, onCancel, ...props }: EditingFormProp) => {
   const { edit, getById } = useContext(ProductsContext);
 
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [editing, setEditing] = useState<boolean>(false);
   const [formValue, setFormValue] = useState<FormValueProp>(initFormValue);
 
   const init = useCallback(() => {
@@ -38,6 +39,8 @@ export const EditingForm = ({ id, onCancel, ...props }: EditingFormProp) => {
 
   const onSubmit = useCallback(async () => {
     try {
+      setEditing(true);
+
       const body = getFormData(formValue);
 
       if (body) {
@@ -53,6 +56,8 @@ export const EditingForm = ({ id, onCancel, ...props }: EditingFormProp) => {
       props.onSubmit();
     } catch (error: any) {
       dispatch({ show: true, text: error.message, status: NotificationStatus.ERROR });
+    } finally {
+      setEditing(false);
     }
   }, [id, dispatch, edit, props, formValue]);
 
@@ -60,12 +65,12 @@ export const EditingForm = ({ id, onCancel, ...props }: EditingFormProp) => {
     () => (
       <>
         <Cancel mt="8" size="lg" onPress={onCancel} />
-        <Button mt="8" size="lg" onPress={onSubmit}>
+        <Button mt="8" size="lg" onPress={onSubmit} isLoading={editing} isLoadingText="Saving">
           Edit
         </Button>
       </>
     ),
-    [onCancel, onSubmit],
+    [editing, onCancel, onSubmit],
   );
 
   return <FormContent value={formValue} setValue={setFormValue} Controls={Controls} />;

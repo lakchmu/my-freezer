@@ -12,9 +12,12 @@ export const CreatingForm = ({}: CreatingFormProp) => {
   const { create } = useContext(ProductsContext);
 
   const [formValue, setFormValue] = useState<FormValueProp>(initFormValue);
+  const [creating, setCreating] = useState<boolean>(false);
 
   const onSubmit = useCallback(async () => {
     try {
+      setCreating(true);
+
       const body = getFormData(formValue);
 
       console.log('Payload data: ', body);
@@ -28,6 +31,8 @@ export const CreatingForm = ({}: CreatingFormProp) => {
       }
     } catch (error: any) {
       dispatch({ show: true, text: error.message, status: NotificationStatus.ERROR });
+    } finally {
+      setCreating(false);
     }
   }, [dispatch, create, formValue]);
 
@@ -37,11 +42,11 @@ export const CreatingForm = ({}: CreatingFormProp) => {
 
   const Controls = useCallback(
     () => (
-      <Button mt="8" size="lg" onPress={onSubmit}>
+      <Button mt="8" size="lg" onPress={onSubmit} isLoading={creating} isLoadingText="Saving">
         Create
       </Button>
     ),
-    [onSubmit],
+    [creating, onSubmit],
   );
 
   return <FormContent value={formValue} setValue={setFormValue} Controls={Controls} />;
