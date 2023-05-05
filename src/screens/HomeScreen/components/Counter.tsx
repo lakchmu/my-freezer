@@ -1,13 +1,14 @@
 import React, { FC, useCallback } from 'react';
-import { Box, Icon as NBIcon, IconButton, Text } from 'native-base';
+import { Box, Icon as NBIcon, IconButton, Text, Spinner } from 'native-base';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 export interface CounterProps {
+  loading: boolean;
   value: number;
   onChange: (value: number) => void;
 }
 
-export const Counter: FC<CounterProps> = ({ value, onChange }: CounterProps) => {
+export const Counter: FC<CounterProps> = ({ loading, value, onChange }: CounterProps) => {
   const onIncrement = () => {
     onChange(value + 1);
   };
@@ -25,11 +26,15 @@ export const Counter: FC<CounterProps> = ({ value, onChange }: CounterProps) => 
 
   return (
     <Box flexDirection="row" alignItems="center">
-      <IconButton onPress={onDecrement} icon={<Icon name="minus" />} />
-      <Text color="primary.600" fontSize="18" fontWeight="bold" mx={1}>
-        {value}
-      </Text>
-      <IconButton onPress={onIncrement} icon={<Icon name="plus" />} />
+      <IconButton onPress={onDecrement} icon={<Icon name="minus" />} disabled={loading} />
+      {loading ? (
+        <Spinner fontSize="md" color="primary.600" />
+      ) : (
+        <Text color="primary.600" fontSize="18" fontWeight="bold" mx={1}>
+          {value}
+        </Text>
+      )}
+      <IconButton onPress={onIncrement} icon={<Icon name="plus" />} disabled={loading} />
     </Box>
   );
 };

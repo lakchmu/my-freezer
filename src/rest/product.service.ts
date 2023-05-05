@@ -22,6 +22,12 @@ class ProductService {
 
     await httpClient.put(`/product/${id}`, data);
   }
+
+  async remove(id: number): Promise<void> {
+    const httpClient = await getHttpClient({});
+
+    await httpClient.delete(`/product/${id}`);
+  }
 }
 
 const productService: ProductService = new ProductService();

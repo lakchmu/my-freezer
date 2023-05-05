@@ -1,10 +1,10 @@
 import React, { FC, useCallback, useContext, useState } from 'react';
-import { HStack, Avatar, VStack, Text, IconButton, Icon } from 'native-base';
+import { HStack, Avatar, VStack, Text, IconButton, Icon, Spinner } from 'native-base';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation } from '@react-navigation/native';
 import { debounce } from 'lodash';
 
-import { ProductsContext } from '../../../store';
+import { NotificationContext, NotificationStatus, ProductsContext } from '../../../store';
 import { BaseScreenNavigationProp, RootStackScreen } from '../../../router/type';
 
 import { Counter } from './Counter';
@@ -16,14 +16,37 @@ const BASE_URL = process.env.BASE_URL;
 export interface ProductItemProps extends Product {}
 
 export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit }: ProductItemProps) => {
-  const { edit } = useContext(ProductsContext);
+  const { edit, remove } = useContext(ProductsContext);
+  const { dispatch } = useContext(NotificationContext);
   const { navigate } = useNavigation<BaseScreenNavigationProp<RootStackScreen.HOME>>();
 
   const [count, setCount] = useState<number>(amount);
 
-  const debounceEdit = useCallback(debounce(edit, 2000), [edit]); // TODO fix warning
+  const [removing, setRemoving] = useState<boolean>(false);
+  const [counting, setCounting] = useState<boolean>(false);
+
+  const debounceEdit = useCallback(
+    debounce(async (id: number, data: Partial<Product>) => {
+      setCounting(true);
+      await edit(id, data);
+      setCounting(false);
+    }, 2000),
+    [edit],
+  ); // TODO fix warning
 
   const onEditPageOpen = () => navigate(RootStackScreen.EDITPRODUCT, { id });
+
+  const onRemove = async () => {
+    try {
+      setRemoving(true);
+      await remove(id);
+      dispatch({ show: true, text: 'The Product Was Deleted', status: NotificationStatus.SUCCESS });
+    } catch (error: any) {
+      dispatch({ show: true, text: error.message, status: NotificationStatus.ERROR });
+    } finally {
+      setRemoving(false);
+    }
+  };
 
   const onCountChange = useCallback(
     (value: number) => {
@@ -48,12 +71,22 @@ export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit
           Amount: {count}, Limit: {limit}
         </Text>
       </VStack>
-      <VStack alignItems="flex-end" space={5}>
-        <IconButton
-          onPress={onEditPageOpen}
-          icon={<Icon size="md" as={SimpleLineIcons} name="pencil" color="lime.600" />}
-        />
-        <Counter value={count} onChange={onCountChange} />
+      <VStack alignItems="stretch" space={5}>
+        <HStack justifyContent="space-between" alignItems="center">
+          <IconButton
+            onPress={onEditPageOpen}
+            icon={<Icon size="md" as={SimpleLineIcons} name="pencil" color="lime.600" />}
+          />
+          {removing ? (
+            <Spinner fontSize="md" color="red.600" />
+          ) : (
+            <IconButton
+              onPress={onRemove}
+              icon={<Icon size="md" as={SimpleLineIcons} name="trash" color="red.600" />}
+            />
+          )}
+        </HStack>
+        <Counter loading={counting} value={count} onChange={onCountChange} />
       </VStack>
     </HStack>
   );

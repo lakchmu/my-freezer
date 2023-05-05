@@ -44,6 +44,13 @@ export const ProductProvider: FC<{ children: React.ReactNode }> = ({ children }:
     (id: number, value: Partial<Product> | FormData): Promise<void> => productService.edit(id, value),
     [],
   );
+  const remove = useCallback(
+    async (id: number): Promise<void> => {
+      await productService.remove(id);
+      dispatch({ list: state.list.filter((product: Product) => product.id !== id) });
+    },
+    [state.list],
+  );
   const getById = useCallback(
     (id: number): Product | undefined => state.list.find(product => product.id === id),
     [state.list],
@@ -56,6 +63,7 @@ export const ProductProvider: FC<{ children: React.ReactNode }> = ({ children }:
         dispatch,
         create,
         edit,
+        remove,
         getById,
       }}>
       {children}
