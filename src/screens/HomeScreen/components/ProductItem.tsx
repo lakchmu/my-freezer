@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useContext, useState } from 'react';
 import { HStack, Avatar, VStack, Text, IconButton, Icon, Spinner } from 'native-base';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { debounce } from 'lodash';
 
@@ -48,6 +49,13 @@ export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit
     }
   };
 
+  const setFullAmount = async () => {
+    setCounting(true);
+    setCount(limit);
+    await edit(id, { amount: limit });
+    setCounting(false);
+  };
+
   const onCountChange = useCallback(
     (value: number) => {
       setCount(value);
@@ -71,11 +79,19 @@ export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit
           Amount: {count}, Limit: {limit}
         </Text>
       </VStack>
-      <VStack alignItems="stretch" space={5}>
+      <VStack alignItems="stretch" justifyContent="flex-end" space={5}>
         <HStack justifyContent="space-between" alignItems="center">
+          {counting ? (
+            <Spinner fontSize="md" color="lime.600" />
+          ) : (
+            <IconButton
+              onPress={setFullAmount}
+              icon={<Icon size="lg" as={MaterialIcons} name="battery-charging-full" color="lime.600" />}
+            />
+          )}
           <IconButton
             onPress={onEditPageOpen}
-            icon={<Icon size="md" as={SimpleLineIcons} name="pencil" color="lime.600" />}
+            icon={<Icon size="md" as={SimpleLineIcons} name="pencil" color="muted.600" />}
           />
           {removing ? (
             <Spinner fontSize="md" color="red.600" />
