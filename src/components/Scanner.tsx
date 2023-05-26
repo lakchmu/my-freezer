@@ -24,7 +24,7 @@ export const Scanner = ({ value, setValue }: ScannerProps) => {
   return (
     <>
       {isLoading && (
-        <Stack h="30%" w="100%" style={styles(height).wrap}>
+        <Stack style={styles(height).wrap}>
           <BarcodeScanner
             onBarCodeRead={barcodeReceived}
             style={styles(height).root}
@@ -54,14 +54,15 @@ const styles = (height: number) =>
   StyleSheet.create({
     root: {
       position: 'absolute',
-      height: height,
+      height,
       width: '100%',
-      top: '50%',
+      top: -(height / 2) + height / 8,
       left: 0,
-      transform: [{ translateY: -163.5 }],
     },
     wrap: {
       position: 'relative',
+      height: height / 4,
+      width: '100%',
       overflow: 'hidden',
     },
   });
