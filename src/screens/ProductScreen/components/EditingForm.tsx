@@ -16,7 +16,7 @@ interface EditingFormProp {
 
 export const EditingForm = ({ id, onCancel, ...props }: EditingFormProp) => {
   const { dispatch } = useContext(NotificationContext);
-  const { edit, getById } = useContext(ProductsContext);
+  const { edit, getById, getAll } = useContext(ProductsContext);
 
   const [loaded, setLoaded] = useState<boolean>(false);
   const [editing, setEditing] = useState<boolean>(false);
@@ -45,6 +45,7 @@ export const EditingForm = ({ id, onCancel, ...props }: EditingFormProp) => {
 
       if (body) {
         await edit(id, body);
+        await getAll();
 
         dispatch({
           show: true,

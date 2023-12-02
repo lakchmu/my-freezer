@@ -11,7 +11,10 @@ class AuthService {
       method: 'post',
       url: `${baseUrl}/api/auth/login`,
       data: { email, password },
-    }).then(({ data }) => data);
+    }).then(res => {
+      console.log(res);
+      return res.data;
+    });
   }
 }
 

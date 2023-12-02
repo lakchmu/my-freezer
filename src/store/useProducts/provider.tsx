@@ -55,16 +55,22 @@ export const ProductProvider: FC<{ children: React.ReactNode }> = ({ children }:
     (id: number): Product | undefined => state.list.find(product => product.id === id),
     [state.list],
   );
+  const getShoppingList = useCallback(async (): Promise<void> => {
+    const list = await productService.getAll({ toBuy: true });
+    dispatch({ list });
+  }, [state.list]);
 
   return (
     <ProductsContext.Provider
       value={{
         state,
         dispatch,
+        getAll: init,
         create,
         edit,
         remove,
         getById,
+        getShoppingList,
       }}>
       {children}
     </ProductsContext.Provider>

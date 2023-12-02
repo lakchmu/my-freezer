@@ -9,7 +9,7 @@ interface CreatingFormProp {}
 
 export const CreatingForm = ({}: CreatingFormProp) => {
   const { dispatch } = useContext(NotificationContext);
-  const { create } = useContext(ProductsContext);
+  const { create, getAll } = useContext(ProductsContext);
 
   const [formValue, setFormValue] = useState<FormValueProp>(initFormValue);
   const [creating, setCreating] = useState<boolean>(false);
@@ -24,6 +24,7 @@ export const CreatingForm = ({}: CreatingFormProp) => {
 
       if (body) {
         await create(body);
+        await getAll();
 
         dispatch({ show: true, text: 'The Product Was Added', status: NotificationStatus.SUCCESS });
 

@@ -3,10 +3,16 @@ import getHttpClient from './axios';
 import { Product } from '../types';
 
 class ProductService {
-  async getAll(): Promise<Product[]> {
+  async getAll(query?: any): Promise<Product[]> {
     const httpClient = await getHttpClient({});
 
-    const res: { data: Product[] } = await httpClient.get('/product');
+    let url = '/product';
+
+    if (query && query.toBuy) {
+      url = '/product?toBuy=true';
+    }
+
+    const res: { data: Product[] } = await httpClient.get(url);
 
     return res.data;
   }

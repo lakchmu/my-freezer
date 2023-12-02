@@ -13,6 +13,7 @@ const MapScreenNameLabel = {
   [RootStackScreen.SEARCH]: 'Search',
   [RootStackScreen.NEWPRODUCT]: 'Add New Product',
   [RootStackScreen.EDITPRODUCT]: 'Edit Product',
+  [RootStackScreen.SHOPPINGLIST]: 'Shopping List',
 };
 
 const BLACK_LIST: string[] = [RootStackScreen.SEARCH, RootStackScreen.EDITPRODUCT];
