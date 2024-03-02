@@ -4,6 +4,7 @@ export interface Product {
   unit: Unit;
   amount: number;
   limit: number;
+  price: number;
   uri?: string;
   barcode?: string;
 }

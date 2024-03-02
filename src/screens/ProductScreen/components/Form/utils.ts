@@ -6,10 +6,11 @@ interface getFormDataProp {
   limit: string;
   unit: string;
   barcode: string;
+  price: string;
 }
 
 export const getFormData = (prop: getFormDataProp) => {
-  const { image, name, limit, unit, barcode } = prop;
+  const { image, name, limit, unit, barcode, price } = prop;
 
   const body = new FormData();
 
@@ -24,6 +25,7 @@ export const getFormData = (prop: getFormDataProp) => {
   body.append('limit', limit);
   body.append('unit', unit);
   body.append('barcode', barcode);
+  body.append('price', price);
 
   return body;
 };

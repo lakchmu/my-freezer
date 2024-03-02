@@ -8,6 +8,7 @@ import { Unit } from '../../../../types';
 export const initFormValue: FormValueProp = {
   name: '',
   limit: '',
+  price: '',
   unit: Unit.PIECE,
   barcode: '',
   uri: undefined,
@@ -17,6 +18,7 @@ export const initFormValue: FormValueProp = {
 export interface FormValueProp {
   name: string;
   limit: string;
+  price: string;
   unit: Unit;
   barcode: string;
   uri?: string;
@@ -68,6 +70,15 @@ export const FormContent = ({ value, setValue, Controls }: FormContentProp) => {
             options={options}
             value={value.unit}
             onSelect={unit => onInput({ unit })}
+          />
+        </FormControl>
+        <FormControl flex="1" isRequired>
+          <Input
+            label="Price"
+            placeholder="Price"
+            accessibilityLabel="Input Price"
+            value={value.price}
+            onInput={price => onInput({ price })}
           />
         </FormControl>
       </HStack>
