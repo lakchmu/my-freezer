@@ -12,7 +12,7 @@ export interface ProductListProps {
 export const ProductList = ({ products }: ProductListProps) => {
   return (
     <ScrollView>
-      <VStack space={2} w="100%" h="100%">
+      <VStack space={2} w="100%">
         {products.map(product => (
           <ProductItem {...product} key={product.id} />
         ))}
