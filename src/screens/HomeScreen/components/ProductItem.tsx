@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useContext, useMemo, useState } from 'react';
-import { HStack, Avatar, VStack, Text, IconButton, Icon, Spinner } from 'native-base';
+import { HStack, VStack, Text, IconButton, Icon, Spinner } from 'native-base';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +10,8 @@ import { BaseScreenNavigationProp, RootStackScreen } from '../../../router/type'
 import { HelperService } from '../../../utils';
 
 import { Counter } from './Counter';
+
+import { Avatar } from '../../../components';
 
 import type { Product } from '../../../types';
 
@@ -67,9 +69,7 @@ export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit
 
   return (
     <HStack alignItems="center" space={2} p={2} backgroundColor="white" w="100%" h="32">
-      <Avatar bg="darkBlue.700" source={source} size="xl">
-        {!uri && name.slice(0, 2)}
-      </Avatar>
+      <Avatar source={source} name={name} />
       <VStack alignItems="flex-start" flex={1}>
         <Text fontSize="lg" fontWeight="bold" bold color="coolGray.800">
           {name}
