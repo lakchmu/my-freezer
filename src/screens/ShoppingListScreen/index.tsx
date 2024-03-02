@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { Stack, Heading, ScrollView } from 'native-base';
 
 import { RootStackScreen, RootStackScreenProps } from '../../router/type';
-import { AppBar } from '../../components';
+import { AppBar, ItemsList } from '../../components';
 import { ProductsContext } from '../../store';
 
-import { List } from './components';
+import { ItemContent } from './components';
 
 export const ShoppingListScreen = ({}: RootStackScreenProps<RootStackScreen.SHOPPINGLIST>) => {
   const { state: products, getShoppingList } = useContext(ProductsContext);
@@ -21,7 +21,7 @@ export const ShoppingListScreen = ({}: RootStackScreenProps<RootStackScreen.SHOP
         <Heading mt="6" mb="4" textAlign="center">
           Shopping list
         </Heading>
-        <List products={products.list} />
+        <ItemsList items={products.list} ItemComponent={ItemContent} />
       </ScrollView>
     </Stack>
   );

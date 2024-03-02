@@ -7,3 +7,4 @@ export * from './Input';
 export * from './Select';
 export * from './Notification';
 export * from './Scanner';
+export * from './ItemsList';

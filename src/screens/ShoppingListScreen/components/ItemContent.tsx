@@ -1,24 +1,21 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { HStack, Text, VStack } from 'native-base';
-import { ImageSourcePropType } from 'react-native';
 
 import { Avatar } from '../../../components';
+import { HelperService } from '../../../utils';
 
 import { Product } from '../../../types';
 
-export interface ItemContentProps extends Product {
-  count?: number;
-  source?: ImageSourcePropType;
-}
+export const ItemContent = ({ uri, name, unit, price, barcode, limit, amount }: Product) => {
+  const source = useMemo(() => HelperService.getImageUrl(uri), [uri]);
 
-export const ItemContent = ({ name, unit, source, count, price, barcode }: ItemContentProps) => {
   return (
-    <HStack alignItems="center" space={4} p={4} backgroundColor="white" w="100%" minHeight="32">
+    <HStack alignItems="center" space={4}>
       <Avatar source={source} name={name} />
       <VStack alignItems="flex-start" flex={1}>
         <HStack marginBottom="2">
           <Text fontSize="xl" bold lineHeight="xs" color="coolGray.800">
-            {name}: {count} {unit.toLowerCase()}
+            {name}: {limit - amount} {unit.toLowerCase()}
           </Text>
         </HStack>
         <Text fontSize="sm" bold color="coolGray.400">

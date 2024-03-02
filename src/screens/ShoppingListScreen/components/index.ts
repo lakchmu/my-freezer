@@ -1,1 +1,1 @@
-export { ListLogic as List } from './ListLogic';
+export { ItemContent } from './ItemContent';
