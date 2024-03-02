@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Stack, VStack, Heading } from 'native-base';
+import { Stack, ScrollView, Heading } from 'native-base';
 
 import { AuthContext, ProductsContext } from '../../store';
 import { RootStackScreen, RootStackScreenProps } from '../../router/type';
@@ -14,12 +14,12 @@ export const HomeScreen = ({}: RootStackScreenProps<RootStackScreen.HOME>) => {
   return (
     <Stack w="100%" h="100%" backgroundColor="gray.100">
       <AppBar currentScreen={RootStackScreen.HOME} />
-      <VStack w="100%" p="2">
+      <ScrollView w="100%" p="2">
         <Heading mt="4" mb="6">
           Welcome, {auth.state.name}!!!
         </Heading>
         <ProductList products={produsts.list} />
-      </VStack>
+      </ScrollView>
     </Stack>
   );
 };
