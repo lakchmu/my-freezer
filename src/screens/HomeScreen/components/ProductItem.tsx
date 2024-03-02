@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useContext, useState } from 'react';
+import React, { FC, useCallback, useContext, useMemo, useState } from 'react';
 import { HStack, Avatar, VStack, Text, IconButton, Icon, Spinner } from 'native-base';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -7,12 +7,11 @@ import { debounce } from 'lodash';
 
 import { NotificationContext, NotificationStatus, ProductsContext } from '../../../store';
 import { BaseScreenNavigationProp, RootStackScreen } from '../../../router/type';
+import { HelperService } from '../../../utils';
 
 import { Counter } from './Counter';
 
 import type { Product } from '../../../types';
-
-const BASE_URL = process.env.BASE_URL;
 
 export interface ProductItemProps extends Product {}
 
@@ -64,7 +63,7 @@ export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit
     [id, debounceEdit],
   );
 
-  const source = uri ? { uri: `${BASE_URL}/uploads/${uri}` } : undefined;
+  const source = useMemo(() => HelperService.getImageUrl(uri), [uri]);
 
   return (
     <HStack alignItems="center" space={2} p={2} backgroundColor="white" w="100%" h="32">
