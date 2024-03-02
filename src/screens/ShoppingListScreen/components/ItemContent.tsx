@@ -1,6 +1,8 @@
 import React from 'react';
-import { Avatar, HStack, Text, VStack } from 'native-base';
+import { HStack, Text, VStack } from 'native-base';
 import { ImageSourcePropType } from 'react-native';
+
+import { Avatar } from '../../../components';
 
 import { Product } from '../../../types';
 
@@ -9,23 +11,21 @@ export interface ItemContentProps extends Product {
   source?: ImageSourcePropType;
 }
 
-export const ItemContent = ({ name, unit, source, count, price }: ItemContentProps) => {
+export const ItemContent = ({ name, unit, source, count, price, barcode }: ItemContentProps) => {
   return (
-    <HStack alignItems="center" space={2} p={2} backgroundColor="white" w="100%" h="32">
-      <Avatar bg="darkBlue.700" source={source} size="xl">
-        {name.slice(0, 2)}
-      </Avatar>
+    <HStack alignItems="center" space={4} p={4} backgroundColor="white" w="100%" minHeight="32">
+      <Avatar source={source} name={name} />
       <VStack alignItems="flex-start" flex={1}>
-        <Text fontSize="lg" fontWeight="bold" bold color="coolGray.800">
-          {name}
+        <HStack marginBottom="2">
+          <Text fontSize="xl" bold lineHeight="xs" color="coolGray.800">
+            {name}: {count} {unit.toLowerCase()}
+          </Text>
+        </HStack>
+        <Text fontSize="sm" bold color="coolGray.400">
+          barcode: {barcode || '-'}
         </Text>
-        <Text fontSize="xs" bold color="coolGray.600">
-          {price}
-        </Text>
-      </VStack>
-      <VStack alignItems="stretch" justifyContent="flex-end" space={5}>
-        <Text fontSize="lg" fontWeight="bold" bold color="coolGray.800">
-          {count} {unit}
+        <Text fontSize="sm" lineHeight="xs" bold color="darkBlue.700">
+          price: {price} GEL
         </Text>
       </VStack>
     </HStack>
