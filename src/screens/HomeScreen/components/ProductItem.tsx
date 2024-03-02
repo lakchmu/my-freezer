@@ -7,6 +7,7 @@ import { debounce } from 'lodash';
 
 import { NotificationContext, NotificationStatus, ProductsContext } from '../../../store';
 import { BaseScreenNavigationProp, RootStackScreen } from '../../../router/type';
+import { HelperService } from '../../../utils';
 
 import { Counter } from './Counter';
 
@@ -62,10 +63,7 @@ export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit
     [id, debounceEdit],
   );
 
-  const source = useMemo(() => {
-    console.log('product', uri ? { uri: `${process.env.BASE_URL}/uploads/${uri}` } : undefined);
-    return uri ? { uri: `${process.env.BASE_URL}/uploads/${uri}` } : undefined;
-  }, [process.env.BASE_URL, uri]);
+  const source = useMemo(() => HelperService.getImageUrl(uri), [uri]);
 
   return (
     <HStack alignItems="center" space={2} p={2} backgroundColor="white" w="100%" h="32">

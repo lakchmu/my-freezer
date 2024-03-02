@@ -3,7 +3,7 @@ import axios from 'axios';
 import CookieService from '../utils/token.service';
 
 const baseURL = `${process.env.BASE_URL}/api`;
-console.log('API new baseURL: ', baseURL);
+console.log('Current API baseURL: ', baseURL);
 
 const getHttpClient = async ({ headers }: any) => {
   const bearer = await CookieService.getUserToken();

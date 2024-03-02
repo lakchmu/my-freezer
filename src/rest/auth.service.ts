@@ -7,7 +7,7 @@ const baseUrl = process.env.BASE_URL;
 class AuthService {
   login({ email, password }: Credentials): Promise<{ data: UserModel; Authorization: string }> {
     console.log('Auth Service -> login: ', JSON.stringify({ email, password }));
-    console.log('BaseUrl: ', baseUrl);
+    console.log('Auth API baseURL: ', baseUrl);
     return axios({
       method: 'post',
       url: `${baseUrl}/api/auth/login`,
@@ -16,7 +16,7 @@ class AuthService {
       .then(res => {
         return res.data;
       })
-      .catch(e => JSON.stringify(e));
+      .catch(e => console.log('Auth error:', JSON.stringify(e), null, 2));
   }
 }
 
