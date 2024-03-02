@@ -9,7 +9,7 @@ export interface ItemContentProps extends Product {
   source?: ImageSourcePropType;
 }
 
-export const ItemContent = ({ name, unit, source, count }: ItemContentProps) => {
+export const ItemContent = ({ name, unit, source, count, price }: ItemContentProps) => {
   return (
     <HStack alignItems="center" space={2} p={2} backgroundColor="white" w="100%" h="32">
       <Avatar bg="darkBlue.700" source={source} size="xl">
@@ -20,7 +20,7 @@ export const ItemContent = ({ name, unit, source, count }: ItemContentProps) => 
           {name}
         </Text>
         <Text fontSize="xs" bold color="coolGray.600">
-          10$
+          {price}
         </Text>
       </VStack>
       <VStack alignItems="stretch" justifyContent="flex-end" space={5}>
