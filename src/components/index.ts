@@ -1,3 +1,4 @@
+export * from './Avatar';
 export * from './AppBar';
 export * from './Button';
 export * from './Cancel';
@@ -6,3 +7,4 @@ export * from './Input';
 export * from './Select';
 export * from './Notification';
 export * from './Scanner';
+export * from './ItemsList';

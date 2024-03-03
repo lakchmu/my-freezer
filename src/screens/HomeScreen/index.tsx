@@ -3,9 +3,9 @@ import { Stack, ScrollView, Heading } from 'native-base';
 
 import { AuthContext, ProductsContext } from '../../store';
 import { RootStackScreen, RootStackScreenProps } from '../../router/type';
-import { AppBar } from '../../components';
+import { AppBar, ItemsList } from '../../components';
 
-import { ProductList } from './components';
+import { ProductItem } from './components';
 
 export const HomeScreen = ({}: RootStackScreenProps<RootStackScreen.HOME>) => {
   const auth = useContext(AuthContext);
@@ -14,11 +14,11 @@ export const HomeScreen = ({}: RootStackScreenProps<RootStackScreen.HOME>) => {
   return (
     <Stack w="100%" h="100%" backgroundColor="gray.100">
       <AppBar currentScreen={RootStackScreen.HOME} />
-      <ScrollView w="100%" p="2">
-        <Heading mt="4" mb="6">
+      <ScrollView>
+        <Heading mt="6" mb="4" textAlign="center">
           Welcome, {auth.state.name}!!!
         </Heading>
-        <ProductList products={produsts.list} />
+        <ItemsList items={produsts.list} ItemComponent={ProductItem} />
       </ScrollView>
     </Stack>
   );

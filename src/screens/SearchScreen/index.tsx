@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Stack, VStack, Heading, Text } from 'native-base';
 import { debounce } from 'lodash';
 
-import { AppBar, Scanner } from '../../components';
+import { AppBar, ItemsList, Scanner } from '../../components';
 import { getHttpClient } from '../../rest';
 import { Product } from '../../types';
 import { RootStackScreen, RootStackScreenProps } from '../../router/type';
 
-import { ProductList } from '../HomeScreen/components/ProductList'; // TODO
+import { ProductItem } from '../HomeScreen/components'; // TODO
 
 export const SearchScreen = ({}: RootStackScreenProps<RootStackScreen.SEARCH>) => {
   const [barcode, setBarcode] = useState<string>('');
@@ -44,7 +44,7 @@ export const SearchScreen = ({}: RootStackScreenProps<RootStackScreen.SEARCH>) =
         </Heading>
         <Scanner value={barcode} setValue={setBarcode} />
         {epmtyResult && <Text> There aren't product with the barcode: {barcode} </Text>}
-        <ProductList products={items} />
+        <ItemsList items={items} ItemComponent={ProductItem} />
       </VStack>
     </Stack>
   );
