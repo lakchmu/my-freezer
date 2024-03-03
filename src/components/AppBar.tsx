@@ -25,7 +25,7 @@ export function AppBar({ currentScreen }: AppBarProps) {
           <IconButton onPress={onOpen} icon={<Icon size="lg" as={SimpleLineIcons} name="menu" color="white" />} />
         </HStack>
         <HStack alignItems="baseline" space={1}>
-          <IconButton icon={<Icon as={SimpleLineIcons} name="heart" size="lg" color="white" />} />
+          {/* <IconButton icon={<Icon as={SimpleLineIcons} name="heart" size="lg" color="white" />} /> */}
           <IconButton
             onPress={onSearch}
             icon={<Icon as={SimpleLineIcons} name="magnifier" size="lg" color="white" />}
