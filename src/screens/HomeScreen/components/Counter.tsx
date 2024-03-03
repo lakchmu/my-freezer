@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { HStack, Icon as NBIcon, IconButton, Text, Spinner } from 'native-base';
+import { HStack, Icon as NBIcon, IconButton, Spinner } from 'native-base';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 export interface CounterProps {
@@ -26,14 +26,8 @@ export const Counter: FC<CounterProps> = ({ loading, value, onChange }: CounterP
 
   return (
     <HStack justifyContent="space-between" alignItems="center">
+      {loading && <Spinner fontSize="md" color="primary.600" />}
       <IconButton onPress={onDecrement} icon={<Icon name="minus" />} disabled={loading} />
-      {loading ? (
-        <Spinner fontSize="md" color="primary.600" />
-      ) : (
-        <Text color="primary.600" fontSize="18" fontWeight="bold" mx={1}>
-          {value}
-        </Text>
-      )}
       <IconButton onPress={onIncrement} icon={<Icon name="plus" />} disabled={loading} />
     </HStack>
   );
