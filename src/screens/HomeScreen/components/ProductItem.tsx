@@ -1,11 +1,10 @@
 import React, { FC, useCallback, useContext, useMemo, useState } from 'react';
 import { HStack, VStack, Text, IconButton, Icon, Spinner, Pressable } from 'native-base';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { debounce } from 'lodash';
 
-import { NotificationContext, NotificationStatus, ProductsContext } from '../../../store';
+import { ProductsContext } from '../../../store';
 import { BaseScreenNavigationProp, RootStackScreen } from '../../../router/type';
 import { HelperService } from '../../../utils';
 import { Avatar } from '../../../components';
@@ -17,13 +16,11 @@ import type { Product } from '../../../types';
 export interface ProductItemProps extends Product {}
 
 export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit }: ProductItemProps) => {
-  const { edit, remove } = useContext(ProductsContext);
-  const { dispatch } = useContext(NotificationContext);
+  const { edit } = useContext(ProductsContext);
   const { navigate } = useNavigation<BaseScreenNavigationProp<RootStackScreen.HOME>>();
 
   const [count, setCount] = useState<number>(amount);
 
-  const [removing, setRemoving] = useState<boolean>(false);
   const [counting, setCounting] = useState<boolean>(false);
 
   const debounceEdit = useCallback(
@@ -36,18 +33,6 @@ export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit
   ); // TODO fix warning
 
   const onEditPageOpen = () => navigate(RootStackScreen.EDITPRODUCT, { id });
-
-  const onRemove = async () => {
-    try {
-      setRemoving(true);
-      await remove(id);
-      dispatch({ show: true, text: 'The Product Was Deleted', status: NotificationStatus.SUCCESS });
-    } catch (error: any) {
-      dispatch({ show: true, text: error.message, status: NotificationStatus.ERROR });
-    } finally {
-      setRemoving(false);
-    }
-  };
 
   const setFullAmount = async () => {
     setCounting(true);
@@ -89,15 +74,6 @@ export const ProductItem: FC<ProductItemProps> = ({ id, name, uri, amount, limit
               <IconButton
                 onPress={setFullAmount}
                 icon={<Icon size="lg" as={MaterialIcons} name="battery-charging-full" color="lime.600" />}
-                padding="1"
-              />
-            )}
-            {removing ? (
-              <Spinner fontSize="md" color="red.600" />
-            ) : (
-              <IconButton
-                onPress={onRemove}
-                icon={<Icon size="md" as={SimpleLineIcons} name="trash" color="red.600" />}
                 padding="1"
               />
             )}
